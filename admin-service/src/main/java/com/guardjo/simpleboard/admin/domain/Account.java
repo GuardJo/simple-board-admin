@@ -1,14 +1,21 @@
 package com.guardjo.simpleboard.admin.domain;
 
+import com.guardjo.simpleboard.admin.domain.constant.RoleType;
+import com.guardjo.simpleboard.admin.domain.converter.RoleTypesConverter;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @ToString(callSuper = true)
+@EqualsAndHashCode
 @Entity
 @Table(indexes = {
         @Index(name = "email", columnList = "email"),
@@ -32,20 +39,25 @@ public class Account extends MetaInfoData{
     @Column(nullable = false, length = 100)
     private String password;
 
-    protected Account(String email, String name, String password, String creator) {
+    @Convert(converter = RoleTypesConverter.class)
+    @Column(nullable = false)
+    private Set<RoleType> roleTypes = new LinkedHashSet<>();
+
+    protected Account(String email, String name, Set<RoleType> roleTypes, String password, String creator) {
         this.email = email;
         this.name = name;
+        this.roleTypes = roleTypes;
         this.password = password;
         this.creator = creator;
         this.modifier = creator;
     }
 
-    public Account() {
+    protected Account() {
 
     }
 
-    public static Account of(String email, String name, String password) {
-        return new Account(email, name, password, null);
+    public static Account of(String email, String name, Set<RoleType> roleTypes, String password) {
+        return new Account(email, name, roleTypes, password, null);
     }
 
     /**
@@ -56,19 +68,7 @@ public class Account extends MetaInfoData{
      * @param creator 생성자
      * @return 회원 Entity
      */
-    public static Account of(String email, String name, String password, String creator) {
-        return new Account(email, name, password, creator);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Account account)) return false;
-        return Objects.equals(email, account.email) && Objects.equals(name, account.name) && Objects.equals(password, account.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(email, name, password);
+    public static Account of(String email, String name, Set<RoleType> roleTypes, String password, String creator) {
+        return new Account(email, name, roleTypes, password, creator);
     }
 }

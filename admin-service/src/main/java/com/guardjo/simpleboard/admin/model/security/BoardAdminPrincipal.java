@@ -1,32 +1,43 @@
 package com.guardjo.simpleboard.admin.model.security;
 
+import com.guardjo.simpleboard.admin.domain.constant.RoleType;
 import com.guardjo.simpleboard.admin.model.AccountDto;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record BoardAdminPrincipal(String email, String name, String password,
                                   Collection<? extends GrantedAuthority> authorities,
                                   Map<String, Object> oAuth2Attributes) implements UserDetails, OAuth2User {
-    public static BoardAdminPrincipal of(String email, String name, String password) {
+    public static BoardAdminPrincipal of(String email, String name, String password, Set<RoleType> roleTypes) {
         return new BoardAdminPrincipal(
                 email,
                 name,
                 password,
-                Collections.EMPTY_SET,
+                roleTypes.stream()
+                        .map(RoleType::name)
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toUnmodifiableSet()),
                 Map.of());
     }
 
-    public static BoardAdminPrincipal of(String email, String name, String password, Map<String, Object> oAuth2Attributes) {
+    public static BoardAdminPrincipal of(String email, String name, String password, Set<RoleType> roleTypes, Map<String, Object> oAuth2Attributes) {
         return new BoardAdminPrincipal(
                 email,
                 name,
                 password,
-                Collections.EMPTY_SET,
+                roleTypes.stream()
+                        .map(RoleType::name)
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toUnmodifiableSet()),
                 oAuth2Attributes);
     }
 
@@ -34,7 +45,8 @@ public record BoardAdminPrincipal(String email, String name, String password,
         return BoardAdminPrincipal.of(
                 accountDto.email(),
                 accountDto.name(),
-                accountDto.password()
+                accountDto.password(),
+                accountDto.roleTypes()
         );
     }
 
@@ -42,7 +54,11 @@ public record BoardAdminPrincipal(String email, String name, String password,
         return AccountDto.of(
                 principal.getUsername(),
                 principal.getNickName(),
-                principal.getPassword()
+                principal.getPassword(),
+                principal.authorities.stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .map(RoleType::valueOf)
+                        .collect(Collectors.toSet())
         );
     }
 
