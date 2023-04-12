@@ -12,20 +12,13 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 public class ThymeleafConfig {
     @Bean
     public SpringResourceTemplateResolver springResourceTemplateResolver(
-            SpringResourceTemplateResolver springResourceTemplateResolver, Thymleaf3Properties properties) {
-        springResourceTemplateResolver.setUseDecoupledLogic(properties.isDecoupledLogic());
+            SpringResourceTemplateResolver springResourceTemplateResolver, Thymeleaf3Properties properties) {
+        springResourceTemplateResolver.setUseDecoupledLogic(properties.decoupledLogic());
 
         return springResourceTemplateResolver;
     }
 
-    @Getter
-    @AllArgsConstructor
-    @ConstructorBinding
     @ConfigurationProperties("spring.thymeleaf3")
-    public static class Thymleaf3Properties {
-        /**
-         * thymeleaf decoupled option
-         */
-        private final boolean decoupledLogic;
+    public static record Thymeleaf3Properties(boolean decoupledLogic) {
     }
 }
