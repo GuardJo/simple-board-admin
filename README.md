@@ -10,6 +10,12 @@
 - 기타 부가 기능
 - 인증 기능 (kakao oauth2)
 
+# 도메인 설계
+
+## 회원 도메인 (ACCOUNT)
+
+![ERD](./documents/ERD/ERD.png)
+
 [간단 게시판 프로젝트](https://github.com/GuardJo/simple-board-project)
 
 [노션 링크](https://trapezoidal-curiosity-d38.notion.site/Simple-Board-Admin-2c2fdc67a582434d9985588044ca4d58)
