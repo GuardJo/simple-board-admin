@@ -1,5 +1,6 @@
 package com.guardjo.simpleboard.admin.controller;
 
+import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,6 +12,6 @@ public class RootController {
      */
     @GetMapping
     public String root() {
-        return "forwarding:management/article";
+        return "forward:" + UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX;
     }
 }

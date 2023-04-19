@@ -23,7 +23,7 @@ class RootControllerTest {
     void testGetForwardingRoot() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("forward:management/article"))
+                .andExpect(view().name("forward:/management/article"))
                 .andExpect(forwardedUrl(UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX));
     }
 }
