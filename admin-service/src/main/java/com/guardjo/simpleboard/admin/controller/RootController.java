@@ -14,4 +14,9 @@ public class RootController {
     public String root() {
         return "forward:" + UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX;
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
 }
