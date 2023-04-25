@@ -19,4 +19,9 @@ public class RootController {
     public String test() {
         return "test";
     }
+
+    @GetMapping("/common")
+    public String common() {
+        return "common-template";
+    }
 }
