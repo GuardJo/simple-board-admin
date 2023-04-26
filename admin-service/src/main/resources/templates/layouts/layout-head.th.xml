@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <thlogic>
-    <attr sel="#layout-header" th:fragment="common_head(title, links)"/>
+    <attr sel="#layout-head" th:fragment="common_head(title, links)"/>
     <attr sel="#head-title" th:replace="${title}"/>
     <attr sel="#head-links" th:replace="${links}"/>
 </thlogic>
