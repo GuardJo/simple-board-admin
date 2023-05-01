@@ -7,4 +7,5 @@
           th:replace="layouts/layout-main-table :: common_main_table('댓글 관리', (~{::#main-table} ?: ~{}))"/>
     <attr sel="#layout-right-aside" th:replace="layouts/layout-right-aside :: aside"/>
     <attr sel="#layout-footer" th:replace="layouts/layout-footer :: footer"/>
+    <attr sel="#layout-scripts" th:replace="layouts/layout-scripts :: script"/>
 </thlogic>
