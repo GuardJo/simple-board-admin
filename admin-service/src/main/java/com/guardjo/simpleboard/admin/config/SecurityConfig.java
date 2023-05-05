@@ -14,7 +14,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests((auth) ->
-                        auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                        auth.requestMatchers(
+                                PathRequest.toStaticResources().atCommonLocations(),
+                                        PathRequest.toH2Console()
+                                )
+                                .permitAll()
+                                .antMatchers(
+                                        HttpMethod.GET,
+                                        "/static/plugins/**"
+                                )
                                 .permitAll()
                                 .mvcMatchers(
                                         HttpMethod.GET,
