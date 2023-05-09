@@ -15,8 +15,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests((auth) ->
                         auth.requestMatchers(
-                                PathRequest.toStaticResources().atCommonLocations(),
-                                        PathRequest.toH2Console()
+                                        PathRequest.toStaticResources().atCommonLocations()
                                 )
                                 .permitAll()
                                 .antMatchers(
