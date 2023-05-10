@@ -9,8 +9,10 @@ import java.util.Set;
 /**
  * A DTO for the {@link com.guardjo.simpleboard.admin.domain.Account} entity
  */
-@AllArgsConstructor(staticName = "of")
 public record AccountDto(String email, String name, String password, Set<RoleType> roleTypes) {
+    public static AccountDto of(String email, String name, String password, Set<RoleType> roleTypes) {
+        return new AccountDto(email, name, password, roleTypes);
+    }
 
     public static AccountDto from(Account account) {
         return AccountDto.of(
