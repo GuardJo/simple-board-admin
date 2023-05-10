@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="ko">
+<head id="layout-head">
     <meta charset="UTF-8">
     <title>관리자 계정 페이지</title>
+
+    <link rel="stylesheet" href="/plugins/jsgrid/jsgrid.min.css">
+    <link rel="stylesheet" href="/plugins/jsgrid/jsgrid-theme.min.css">
 </head>
-<body>
-<!-- TODO 구현 예정 -->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <header id="layout-header">헤더 삽입부</header>
+    <aside id="layout-left-aside">좌측 사이드 바 삽입부</aside>
+
+    <!-- Main Contents -->
+    <main id="layout-main">
+        <div id="admin-account-table" class="jsgrid"></div>
+    </main>
+
+    <aside id="layout-right-side">우측 사이드 바 삽입부</aside>
+    <footer id="layout-footer">푸터 삽입부</footer>
+</div>
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/jsgrid/jsgrid.min.js"></script>
+
+<script>
+    $(function () {
+        $("#admin-account-table").jsGrid({
+            height: "100%",
+            width: "100%",
+
+            inserting: true,
+            editing: true,
+            sorting: true,
+            paging: false,
+
+            deleteConfirm: "정말로 해당 계정을 삭제하시겠습니까?",
+
+            data: [
+                {
+                    "accountId" : 1,
+                    "username" : "kyeongho",
+                    "email" : "admin@mail.com",
+                    "roleType" : "ADMIN",
+                    "creator" : "Kyeongho",
+                    "createTime" : "2023-05-05 00:00:00"
+                }
+            ],
+
+            fields: [
+                { name: "accountId", title: "ID", type: "number", width: 150 },
+                { name: "username", title: "이름", type: "text", width: 100 },
+                { name: "email", title: "이메일" ,type: "text", width: 200 },
+                { name: "roleType", title: "권한", type: "select", items: [{"name" : "ADMIN", "description" : "관리자"}]},
+                { name: "creator", title: "생성자" ,type: "text", width: 200 },
+                { name: "createTime", title: "생성일시" ,type: "text", width: 200 },
+                { type: "control"}
+            ]
+        });
+    });
+</script>
+
+<!-- SCRIPTS -->
+<script id="layout-scripts">/* 스크립트 삽입부 */</script>
 </body>
 </html>
