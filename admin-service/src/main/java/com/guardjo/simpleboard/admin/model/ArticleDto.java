@@ -1,7 +1,5 @@
 package com.guardjo.simpleboard.admin.model;
 
-import lombok.AllArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -12,6 +10,7 @@ public record ArticleDto(
         LocalDateTime createTime,
         String modifier,
         LocalDateTime modifiedTime,
+        String title,
         String content,
         Set<String> hashtags
 ) {
@@ -21,8 +20,9 @@ public record ArticleDto(
                       LocalDateTime createTime,
                       String modifier,
                       LocalDateTime modifiedTime,
+                      String title,
                       String content,
                       Set<String> hashtags) {
-        return new ArticleDto(id, member, creator, createTime, modifier, modifiedTime, content, hashtags);
+        return new ArticleDto(id, member, creator, createTime, modifier, modifiedTime, title, content, hashtags);
     }
 }
