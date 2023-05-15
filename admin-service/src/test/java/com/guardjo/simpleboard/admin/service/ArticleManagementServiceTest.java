@@ -10,6 +10,7 @@ import com.guardjo.simpleboard.admin.util.TestDateGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
@@ -18,7 +19,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -30,16 +30,12 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ActiveProfiles("test")
 class ArticleManagementServiceTest {
-    private final ArticleManagementService articleManagementService;
-
-    ArticleManagementServiceTest(ArticleManagementService articleManagementService) {
-        this.articleManagementService = articleManagementService;
-    }
-    
     @DisplayName("실제 서비스 연동 테스트")
     @SpringBootTest
     @Nested
     class RealServiceTest {
+        @Autowired
+        private ArticleManagementService articleManagementService;
         @DisplayName("게시판 서비스에서 게시글 목록 반환 테스트")
         @Test
         void testFindArticles() {
@@ -77,19 +73,20 @@ class ArticleManagementServiceTest {
     @RestClientTest(ArticleManagementService.class)
     @Nested
     class RestTemplateTest {
-        private final RestTemplate restTemplate;
         private final SimpleBoardProperty simpleBoardProperty;
         private final ObjectMapper objectMapper;
         private final MockRestServiceServer restServiceServer;
+        private final ArticleManagementService articleManagementService;
 
-        RestTemplateTest(RestTemplate restTemplate,
-                         SimpleBoardProperty simpleBoardProperty,
+        @Autowired
+        RestTemplateTest(SimpleBoardProperty simpleBoardProperty,
                          ObjectMapper objectMapper,
-                         MockRestServiceServer restServiceServer) {
-            this.restTemplate = restTemplate;
+                         MockRestServiceServer restServiceServer,
+                         ArticleManagementService articleManagementService) {
             this.simpleBoardProperty = simpleBoardProperty;
             this.objectMapper = objectMapper;
             this.restServiceServer = restServiceServer;
+            this.articleManagementService = articleManagementService;
         }
 
         @DisplayName("게시판 서비스에서 게시글 목록 반환 테스트")
