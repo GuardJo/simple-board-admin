@@ -95,7 +95,7 @@ class ArticleManagementServiceTest {
             ArticleResponse articleResponse = TestDateGenerator.generateArticleResponse(expected);
 
             restServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "/page=9999")
+                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "?page=9999")
             ).andRespond(withSuccess(
                     objectMapper.writeValueAsString(articleResponse),
                     MediaType.APPLICATION_JSON

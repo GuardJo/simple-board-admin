@@ -99,7 +99,7 @@ class CommentManagementServiceTest {
             CommentResponse commentResponse = CommentResponse.from(expected);
 
             mockRestServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "/page=9999")
+                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "?page=9999")
             ).andRespond(withSuccess(
                     objectMapper.writeValueAsString(commentResponse),
                     MediaType.APPLICATION_JSON
