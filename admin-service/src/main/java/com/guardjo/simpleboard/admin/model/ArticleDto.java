@@ -5,7 +5,7 @@ import java.util.Set;
 
 public record ArticleDto(
         Long id,
-        AccountDto member,
+        AdminAccountDto member,
         String creator,
         LocalDateTime createTime,
         String modifier,
@@ -15,7 +15,7 @@ public record ArticleDto(
         Set<String> hashtags
 ) {
     public static ArticleDto of(Long id,
-                      AccountDto member,
+                      AdminAccountDto member,
                       String creator,
                       LocalDateTime createTime,
                       String modifier,

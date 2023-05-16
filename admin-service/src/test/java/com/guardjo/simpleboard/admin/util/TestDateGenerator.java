@@ -1,7 +1,7 @@
 package com.guardjo.simpleboard.admin.util;
 
 import com.guardjo.simpleboard.admin.domain.constant.RoleType;
-import com.guardjo.simpleboard.admin.model.AccountDto;
+import com.guardjo.simpleboard.admin.model.AdminAccountDto;
 import com.guardjo.simpleboard.admin.model.ArticleDto;
 import com.guardjo.simpleboard.admin.model.CommentDto;
 import com.guardjo.simpleboard.admin.model.response.ArticleResponse;
@@ -26,8 +26,8 @@ public class TestDateGenerator {
         );
     }
 
-    public static AccountDto generateAccountDto() {
-        return AccountDto.of(
+    public static AdminAccountDto generateAccountDto() {
+        return AdminAccountDto.of(
                 "test@mail.com",
                 "tester",
                 "1234",

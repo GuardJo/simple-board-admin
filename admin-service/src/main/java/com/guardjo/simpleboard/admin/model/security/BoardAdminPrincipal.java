@@ -1,15 +1,13 @@
 package com.guardjo.simpleboard.admin.model.security;
 
 import com.guardjo.simpleboard.admin.domain.constant.RoleType;
-import com.guardjo.simpleboard.admin.model.AccountDto;
+import com.guardjo.simpleboard.admin.model.AdminAccountDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,17 +39,17 @@ public record BoardAdminPrincipal(String email, String name, String password,
                 oAuth2Attributes);
     }
 
-    public static BoardAdminPrincipal from(AccountDto accountDto) {
+    public static BoardAdminPrincipal from(AdminAccountDto adminAccountDto) {
         return BoardAdminPrincipal.of(
-                accountDto.email(),
-                accountDto.name(),
-                accountDto.password(),
-                accountDto.roleTypes()
+                adminAccountDto.email(),
+                adminAccountDto.name(),
+                adminAccountDto.password(),
+                adminAccountDto.roleTypes()
         );
     }
 
-    public static AccountDto toDto(BoardAdminPrincipal principal) {
-        return AccountDto.of(
+    public static AdminAccountDto toDto(BoardAdminPrincipal principal) {
+        return AdminAccountDto.of(
                 principal.getUsername(),
                 principal.getNickName(),
                 principal.getPassword(),
