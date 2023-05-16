@@ -4,8 +4,10 @@ import com.guardjo.simpleboard.admin.domain.constant.RoleType;
 import com.guardjo.simpleboard.admin.model.AdminAccountDto;
 import com.guardjo.simpleboard.admin.model.ArticleDto;
 import com.guardjo.simpleboard.admin.model.CommentDto;
+import com.guardjo.simpleboard.admin.model.MemberDto;
 import com.guardjo.simpleboard.admin.model.response.ArticleResponse;
 import com.guardjo.simpleboard.admin.model.response.CommentResponse;
+import com.guardjo.simpleboard.admin.model.response.MemberResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,5 +51,16 @@ public class TestDateGenerator {
 
     public static CommentResponse generateCommentResponse(List<CommentDto> commentDtos) {
         return CommentResponse.from(commentDtos);
+    }
+
+    public static MemberDto generateMemberDto(String email) {
+        return MemberDto.of(
+                email,
+                "tester",
+                "tester",
+                LocalDateTime.now(),
+                "tester",
+                LocalDateTime.now()
+        );
     }
 }
