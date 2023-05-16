@@ -59,7 +59,6 @@ class CommentManagementServiceTest {
             CommentDto commentDto = commentManagementService.findComment(commentId);
 
             assertThat(commentDto).isNotNull();
-            assertThat(commentDto.id()).isEqualTo(commentId);
         }
 
         @DisplayName("게시판 서비스에서 특정 댓글 삭제 테스튼")
@@ -117,15 +116,16 @@ class CommentManagementServiceTest {
         void testFindComment() throws JsonProcessingException {
             String content = "test content";
             CommentDto expected = TestDateGenerator.generateCommentDto(content);
+            long commentId = 1L;
 
             mockRestServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "/" + expected.id())
+                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "/" + commentId)
             ).andRespond(withSuccess(
                     objectMapper.writeValueAsString(expected),
                     MediaType.APPLICATION_JSON
             ));
 
-            CommentDto actual = commentManagementService.findComment(expected.id());
+            CommentDto actual = commentManagementService.findComment(commentId);
 
             assertThat(actual).isEqualTo(expected);
             mockRestServiceServer.verify();

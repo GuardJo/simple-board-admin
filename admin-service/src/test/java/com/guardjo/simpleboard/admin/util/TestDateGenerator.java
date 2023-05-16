@@ -14,15 +14,12 @@ import java.util.Set;
 public class TestDateGenerator {
     public static ArticleDto generateArticleDto(String title, String content) {
         return ArticleDto.of(
-                1L,
-                generateAccountDto(),
                 "creator",
                 LocalDateTime.now(),
                 "modifier",
                 LocalDateTime.now(),
                 title,
-                content,
-                Set.of("test")
+                content
         );
     }
 
@@ -41,8 +38,6 @@ public class TestDateGenerator {
 
     public static CommentDto generateCommentDto(String content) {
         return CommentDto.of(
-                1L,
-                1L,
                 null,
                 "tester",
                 LocalDateTime.now(),

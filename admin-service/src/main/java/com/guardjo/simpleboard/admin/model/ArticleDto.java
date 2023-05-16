@@ -4,25 +4,20 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public record ArticleDto(
-        Long id,
-        AdminAccountDto member,
         String creator,
         LocalDateTime createTime,
         String modifier,
         LocalDateTime modifiedTime,
         String title,
-        String content,
-        Set<String> hashtags
+        String content
 ) {
-    public static ArticleDto of(Long id,
-                      AdminAccountDto member,
+    public static ArticleDto of(
                       String creator,
                       LocalDateTime createTime,
                       String modifier,
                       LocalDateTime modifiedTime,
                       String title,
-                      String content,
-                      Set<String> hashtags) {
-        return new ArticleDto(id, member, creator, createTime, modifier, modifiedTime, title, content, hashtags);
+                      String content) {
+        return new ArticleDto(creator, createTime, modifier, modifiedTime, title, content);
     }
 }

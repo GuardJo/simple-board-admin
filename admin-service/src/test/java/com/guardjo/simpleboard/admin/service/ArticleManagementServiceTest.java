@@ -53,7 +53,6 @@ class ArticleManagementServiceTest {
             ArticleDto result = articleManagementService.findArticle(articleId);
 
             assertThat(result).isNotNull();
-            assertThat(result.id()).isEqualTo(articleId);
 
             System.out.println(result);
         }

@@ -50,14 +50,13 @@ class ArticleManagementControllerTest {
     @Test
     void testGetArticleData() throws Exception {
         ArticleDto articleDto = TestDateGenerator.generateArticleDto("test", "test");
-        long articleId = articleDto.id();
+        long articleId = 1L;
 
         given(articleManagementService.findArticle(articleId)).willReturn(articleDto);
 
         mockMvc.perform(get(UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX + "/" + articleDto))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(articleId))
                 .andExpect(jsonPath("$.title").value(articleDto.title()))
                 .andExpect(jsonPath("$.content").value(articleDto.content()));
 
