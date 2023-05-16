@@ -82,6 +82,7 @@ class CommentManagementServiceTest {
         private final MockRestServiceServer mockRestServiceServer;
         private final CommentManagementService commentManagementService;
 
+        @Autowired
         RestTemplateTest(SimpleBoardProperty simpleBoardProperty,
                          ObjectMapper objectMapper,
                          MockRestServiceServer mockRestServiceServer,
