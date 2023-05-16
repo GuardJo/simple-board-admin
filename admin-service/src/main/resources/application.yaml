@@ -61,7 +61,7 @@ spring:
     livereload:
       port: 35730
 simple-board:
-  base-url: http://localhost:8081
+  base-url: http://localhost:8080
 ---
 spring:
   config:
