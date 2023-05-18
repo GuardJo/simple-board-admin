@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
 @ActiveProfiles("test")
 @Import(TestConfig.class)
@@ -100,6 +101,19 @@ class JpaRepositoryTest {
 
         assertThat(deletedAccount).isNull();
         assertThat(adminAccountRepository.count()).isEqualTo(TEST_DATA_SIZE - 1);
+    }
+
+    @DisplayName("특정 회원 정보 삭제 테스트 (email)")
+    @Test
+    void testDeleteAccountWithEmail() {
+        String email = "test@mail.com";
+        long before = adminAccountRepository.count();
+
+        adminAccountRepository.deleteByEmail(email);
+
+        long after = adminAccountRepository.count();
+
+        assertThat(after).isEqualTo(before - 1);
     }
 
     @DisplayName("전체 회원 정보 삭제 테스트")
