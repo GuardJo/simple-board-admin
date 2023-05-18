@@ -1,5 +1,6 @@
 package com.guardjo.simpleboard.admin.config;
 
+import com.guardjo.simpleboard.admin.domain.constant.RoleType;
 import com.guardjo.simpleboard.admin.model.AdminAccountDto;
 import com.guardjo.simpleboard.admin.model.security.BoardAdminPrincipal;
 import com.guardjo.simpleboard.admin.model.security.oauth2.kakao.KakaoOAuth2UserResponse;
@@ -27,6 +28,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        String[] managerRole = {RoleType.MANAGER.getRoleName(), RoleType.DEVELOPER.getRoleName(), RoleType.ADMIN.getRoleName()};
+
         httpSecurity.authorizeRequests((auth) ->
                         auth.requestMatchers(
                                         PathRequest.toStaticResources().atCommonLocations()
@@ -37,13 +40,11 @@ public class SecurityConfig {
                                         "/static/plugins/**"
                                 )
                                 .permitAll()
-                                .mvcMatchers(
-                                        HttpMethod.GET,
-                                        "/",
-                                        "/article",
-                                        "/article/search-hashtag"
-                                ).permitAll()
-                                .anyRequest().permitAll()
+                                .mvcMatchers(HttpMethod.POST, "/**")
+                                .hasAnyRole(managerRole)
+                                .mvcMatchers(HttpMethod.DELETE, "/**")
+                                .hasAnyRole(managerRole)
+                                .anyRequest().authenticated()
                 ).formLogin(withDefaults())
                 .oauth2Login(withDefaults())
                 .logout(logOutConfig -> logOutConfig.logoutSuccessUrl("/"));
