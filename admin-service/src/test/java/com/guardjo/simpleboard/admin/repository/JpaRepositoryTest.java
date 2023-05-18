@@ -53,6 +53,18 @@ class JpaRepositoryTest {
                 .hasFieldOrPropertyWithValue("email", "test_admin@mail.com");
     }
 
+    @DisplayName("특정 회원 정보 반환 테스트 (이메일)")
+    @Test
+    void testReadAccountWithEmail() {
+        String email = "test@mail.com";
+
+        AdminAccount account = adminAccountRepository.findByEmail(email).orElseThrow();
+
+        assertThat(account)
+                .hasFieldOrPropertyWithValue("email", email)
+                .hasFieldOrPropertyWithValue("name", "guardjo");
+    }
+
     @DisplayName("전체 회원 정보 반환 테스트")
     @Test
     void testReadAccounts() {
