@@ -42,10 +42,10 @@ public class AdminAccountService {
 
     /**
      * accountId에 해당하는 관리자 계정을 삭제한다.
-     * @param accountId 삭제할 관리자 계정의 식별키
+     * @param email 삭제할 관리자 계정 메일
      */
-    public void deleteAdminAccount(long accountId) {
-        log.info("Deleting AdminAccount, accountId = {}", accountId);
+    public void deleteAdminAccount(String email) {
+        log.info("Deleting AdminAccount, accountId = {}", email);
     }
 
     /**

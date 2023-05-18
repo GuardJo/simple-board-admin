@@ -16,8 +16,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
+import static org.mockito.BDDMockito.*;
 
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
@@ -76,5 +76,18 @@ class AdminAccountServiceTest {
         assertThat(actual).isEqualTo(expected);
 
         then(adminAccountRepository).should().save(entity);
+    }
+
+    @DisplayName("특정 관리자 계정 삭제 테스트 : 정상")
+    @Test
+    void testDeleteAdminAccount() {
+        String email = "test@mail.com";
+
+        willDoNothing().given(adminAccountRepository).deleteByEmail(email);
+
+        assertThatCode(() -> adminAccountService.deleteAdminAccount(email))
+                .doesNotThrowAnyException();
+
+        then(adminAccountRepository).should().deleteByEmail(email);
     }
 }
