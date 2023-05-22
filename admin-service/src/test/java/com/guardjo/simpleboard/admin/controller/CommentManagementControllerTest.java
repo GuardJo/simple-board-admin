@@ -1,6 +1,7 @@
 package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.SecurityConfig;
+import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.service.CommentManagementService;
 import com.guardjo.simpleboard.admin.util.TestDateGenerator;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -20,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import(SecurityConfig.class)
+@Import(TestSecurityConfig.class)
 @WebMvcTest(CommentManagementController.class)
 class CommentManagementControllerTest {
     @Autowired
@@ -30,6 +32,7 @@ class CommentManagementControllerTest {
 
     @DisplayName("댓글 관리 뷰 페이지 반환 테스트")
     @Test
+    @WithMockUser(username = "test@mail.com")
     void testGetCommentManagementView() throws Exception {
         given(commentManagementService.findComments()).willReturn(List.of());
 
@@ -44,6 +47,7 @@ class CommentManagementControllerTest {
 
     @DisplayName("댓글 관리 뷰에서 특정 댓글 객체 반환 테스트")
     @Test
+    @WithMockUser(username = "test@mail.com")
     void testGetComment() throws Exception {
         long commentId = 1L;
         String content = "test";
@@ -61,6 +65,7 @@ class CommentManagementControllerTest {
 
     @DisplayName("댓글 관리 뷰에서 특정 댓글 삭제 반환 테스트")
     @Test
+    @WithMockUser(username = "test@mail.com")
     void testDeleteComment() throws Exception {
         long commentId = 1L;
 

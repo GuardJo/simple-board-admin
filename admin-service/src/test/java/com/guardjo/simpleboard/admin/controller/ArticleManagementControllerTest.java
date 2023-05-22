@@ -1,6 +1,7 @@
 package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.SecurityConfig;
+import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.model.ArticleDto;
 import com.guardjo.simpleboard.admin.service.ArticleManagementService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -22,7 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import(SecurityConfig.class)
+@Import(TestSecurityConfig.class)
 @WebMvcTest(ArticleManagementController.class)
 class ArticleManagementControllerTest {
     @Mock
@@ -32,6 +34,7 @@ class ArticleManagementControllerTest {
 
     @DisplayName("게시글 관리자 뷰 반환 테스트")
     @Test
+    @WithMockUser(username = "test@mail.com")
     void testGetArticleManagementView() throws Exception {
         List<ArticleDto> expected = List.of(TestDateGenerator.generateArticleDto("test", "test"));
 
@@ -48,6 +51,7 @@ class ArticleManagementControllerTest {
 
     @DisplayName("게시글 관리자 페이지에서 게시글 단일 정보 반환 테스트")
     @Test
+    @WithMockUser(username = "test@mail.com")
     void testGetArticleData() throws Exception {
         ArticleDto articleDto = TestDateGenerator.generateArticleDto("test", "test");
         long articleId = 1L;
@@ -65,6 +69,7 @@ class ArticleManagementControllerTest {
 
     @DisplayName("게시글 관리자 페이지에서 게시글 단일 정보 삭제 테스트")
     @Test
+    @WithMockUser(username = "test@mail.com")
     void testDeleteArticle() throws Exception {
         long articleId = 1L;
 
