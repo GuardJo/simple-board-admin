@@ -8,9 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -21,7 +19,7 @@ import java.util.Set;
         @Index(name = "email", columnList = "email"),
         @Index(name = "name", columnList = "name")
 })
-public class Account extends MetaInfoData{
+public class AdminAccount extends MetaInfoData{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ACCOUNT_ID")
@@ -43,7 +41,7 @@ public class Account extends MetaInfoData{
     @Column(nullable = false)
     private Set<RoleType> roleTypes = new LinkedHashSet<>();
 
-    protected Account(String email, String name, Set<RoleType> roleTypes, String password, String creator) {
+    protected AdminAccount(String email, String name, Set<RoleType> roleTypes, String password, String creator) {
         this.email = email;
         this.name = name;
         this.roleTypes = roleTypes;
@@ -52,12 +50,12 @@ public class Account extends MetaInfoData{
         this.modifier = creator;
     }
 
-    protected Account() {
+    protected AdminAccount() {
 
     }
 
-    public static Account of(String email, String name, Set<RoleType> roleTypes, String password) {
-        return new Account(email, name, roleTypes, password, null);
+    public static AdminAccount of(String email, String name, Set<RoleType> roleTypes, String password) {
+        return new AdminAccount(email, name, roleTypes, password, null);
     }
 
     /**
@@ -68,7 +66,7 @@ public class Account extends MetaInfoData{
      * @param creator 생성자
      * @return 회원 Entity
      */
-    public static Account of(String email, String name, Set<RoleType> roleTypes, String password, String creator) {
-        return new Account(email, name, roleTypes, password, creator);
+    public static AdminAccount of(String email, String name, Set<RoleType> roleTypes, String password, String creator) {
+        return new AdminAccount(email, name, roleTypes, password, creator);
     }
 }
