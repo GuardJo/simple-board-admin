@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<thlogic>
+    <attr sel="#detail-action" th:action="@{#}" th:method="delete"/>
+</thlogic>
