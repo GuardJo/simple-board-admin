@@ -3,13 +3,13 @@
     <attr sel="#admin-logo-link" th:href="@{/}"/>
     <attr sel="#user-profile" th:href="@{#}"/>
     <attr sel="#management-category" th:classappend="${#request.requestURI.startsWith('/management')} ? 'active'"/>
-    <attr sel="#article-management" th:href="@{/management/article}"
-            th:classappend="${#request.requestURI.equals('/management/article')} ? 'active'"/>
-    <attr sel="#comment-management" th:href="@{/management/comment}"
-            th:classappend="${#request.requestURI.equals('/management/comment')} ? 'active'"/>
-    <attr sel="#member-management" th:href="@{/management/member}"
-            th:classappend="${#request.requestURI.equals('/management/member')} ? 'active'"/>
+    <attr sel="#article-management" th:href="@{/management/articles}"
+            th:classappend="${#request.requestURI.equals('/management/articles')} ? 'active'"/>
+    <attr sel="#comment-management" th:href="@{/management/comments}"
+            th:classappend="${#request.requestURI.equals('/management/comments')} ? 'active'"/>
+    <attr sel="#member-management" th:href="@{/management/members}"
+            th:classappend="${#request.requestURI.equals('/management/members')} ? 'active'"/>
     <attr sel="#admin-category" th:classappend="${#request.requestURI.startsWith('/admin')} ? 'active'"/>
-    <attr sel="#admin-account" th:href="@{/admin/account}"
-            th:classappend="${#request.requestURI.equals('/admin/account')} ? 'active'"/>
+    <attr sel="#admin-account" th:href="@{/admin/accounts}"
+            th:classappend="${#request.requestURI.equals('/admin/accounts')} ? 'active'"/>
 </thlogic>
