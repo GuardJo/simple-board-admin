@@ -15,6 +15,7 @@ import java.util.Set;
 public class TestDataGenerator {
     public static ArticleDto generateArticleDto(String title, String content) {
         return ArticleDto.of(
+                1L,
                 "creator",
                 LocalDateTime.now(),
                 "modifier",
