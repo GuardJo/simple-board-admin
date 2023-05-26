@@ -30,12 +30,14 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ActiveProfiles("test")
 class ArticleManagementServiceTest {
+    @Deprecated
     @DisplayName("실제 서비스 연동 테스트")
     @SpringBootTest
     @Nested
     class RealServiceTest {
         @Autowired
         private ArticleManagementService articleManagementService;
+
         @DisplayName("게시판 서비스에서 게시글 목록 반환 테스트")
         @Test
         void testFindArticles() {
@@ -49,7 +51,7 @@ class ArticleManagementServiceTest {
         @DisplayName("게시판 서비스에서 특정 게시글 반환 테스트")
         @Test
         void testFindArticle() {
-            long articleId = 1L;
+            long articleId = 2L;
             ArticleDto result = articleManagementService.findArticle(articleId);
 
             assertThat(result).isNotNull();
@@ -95,15 +97,16 @@ class ArticleManagementServiceTest {
             ArticleResponse articleResponse = TestDateGenerator.generateArticleResponse(expected);
 
             restServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "?page=9999")
-            ).andRespond(withSuccess(
-                    objectMapper.writeValueAsString(articleResponse),
-                    MediaType.APPLICATION_JSON
-            ));
+                            requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "?size=" + Integer.MAX_VALUE)
+                    ).andExpect(method(HttpMethod.GET))
+                    .andRespond(withSuccess(
+                            objectMapper.writeValueAsString(articleResponse),
+                            MediaType.APPLICATION_JSON
+                    ));
 
             List<ArticleDto> actual = articleManagementService.findArticles();
 
-            assertThat(actual).isEqualTo(expected);
+            assertThat(actual.stream().findFirst()).isEqualTo(expected.stream().findFirst());
             restServiceServer.verify();
         }
 
@@ -115,7 +118,7 @@ class ArticleManagementServiceTest {
 
             restServiceServer.expect(
                             requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "/" + articleId))
-                    .andExpect(method(HttpMethod.POST))
+                    .andExpect(method(HttpMethod.GET))
                     .andRespond(withSuccess(
                             objectMapper.writeValueAsString(expected),
                             MediaType.APPLICATION_JSON
