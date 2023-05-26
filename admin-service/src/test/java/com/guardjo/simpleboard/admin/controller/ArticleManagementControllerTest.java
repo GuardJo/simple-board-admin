@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.mock;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -68,15 +68,16 @@ class ArticleManagementControllerTest {
 
     @DisplayName("게시글 관리자 페이지에서 게시글 단일 정보 삭제 테스트")
     @Test
-    @WithMockUser(username = "test@mail.com")
+    @WithMockUser(username = "test@mail.com", roles = "ADMIN")
     void testDeleteArticle() throws Exception {
         long articleId = 1L;
 
         willDoNothing().given(articleManagementService).deleteArticle(articleId);
 
-        mockMvc.perform(delete(UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX + "/" + articleId))
+        mockMvc.perform(delete(UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX + "/" + articleId)
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/management/article"))
+                .andExpect(view().name("redirect:/management/articles"))
                 .andExpect(redirectedUrl(UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX));
 
         then(articleManagementService).should().deleteArticle(articleId);
