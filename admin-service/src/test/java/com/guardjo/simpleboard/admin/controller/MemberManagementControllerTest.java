@@ -1,12 +1,10 @@
 package com.guardjo.simpleboard.admin.controller;
 
-import com.guardjo.simpleboard.admin.config.SecurityConfig;
 import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
-import com.guardjo.simpleboard.admin.domain.constant.RoleType;
 import com.guardjo.simpleboard.admin.model.MemberDto;
 import com.guardjo.simpleboard.admin.service.MemberManagementService;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -19,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static com.guardjo.simpleboard.admin.domain.constant.RoleType.ADMIN;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
@@ -38,7 +35,7 @@ class MemberManagementControllerTest {
     @Test
     @WithMockUser(username = "test@mail.com")
     void testGetMemberManagementView() throws Exception {
-        List<MemberDto> memberDtos = List.of(TestDateGenerator.generateMemberDto("test@mail.com"));
+        List<MemberDto> memberDtos = List.of(TestDataGenerator.generateMemberDto("test@mail.com"));
         given(memberManagementService.findMembers()).willReturn(memberDtos);
 
         mockMvc.perform(get(UrlConstant.MEMBER_MANAGEMENT_URL_PREFIX))
@@ -55,7 +52,7 @@ class MemberManagementControllerTest {
     @WithMockUser(username = "test@mail.com")
     void testGetMemberDataInView() throws Exception {
         long memberId = 1L;
-        MemberDto memberDto = TestDateGenerator.generateMemberDto("test@mail.com");
+        MemberDto memberDto = TestDataGenerator.generateMemberDto("test@mail.com");
 
         given(memberManagementService.findMember(memberId)).willReturn(memberDto);
 

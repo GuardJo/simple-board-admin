@@ -6,7 +6,7 @@ import com.guardjo.simpleboard.admin.config.SimpleBoardProperty;
 import com.guardjo.simpleboard.admin.domain.constant.SimpleBoardUrls;
 import com.guardjo.simpleboard.admin.model.MemberDto;
 import com.guardjo.simpleboard.admin.model.response.MemberResponse;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -86,7 +86,7 @@ class MemberManagementServiceTest {
         @DisplayName("게시판 서비스의 계정 목록 호출 테스트")
         @Test
         void testFindMembers() throws JsonProcessingException {
-            List<MemberDto> expected = List.of(TestDateGenerator.generateMemberDto("test@mail.com"));
+            List<MemberDto> expected = List.of(TestDataGenerator.generateMemberDto("test@mail.com"));
             MemberResponse memberResponse = MemberResponse.from(expected);
 
             mockRestServiceServer.expect(
@@ -107,7 +107,7 @@ class MemberManagementServiceTest {
         @Test
         void testFindMember() throws JsonProcessingException {
             long memberId = 1L;
-            MemberDto expected = TestDateGenerator.generateMemberDto("test@mail.com");
+            MemberDto expected = TestDataGenerator.generateMemberDto("test@mail.com");
 
             mockRestServiceServer.expect(
                     requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_MEMBERS_URL + "/" + memberId)

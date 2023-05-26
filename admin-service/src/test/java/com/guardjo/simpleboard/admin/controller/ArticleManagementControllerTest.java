@@ -1,16 +1,15 @@
 package com.guardjo.simpleboard.admin.controller;
 
-import com.guardjo.simpleboard.admin.config.SecurityConfig;
 import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.model.ArticleDto;
 import com.guardjo.simpleboard.admin.service.ArticleManagementService;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -27,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(TestSecurityConfig.class)
 @WebMvcTest(ArticleManagementController.class)
 class ArticleManagementControllerTest {
-    @Mock
+    @MockBean
     private ArticleManagementService articleManagementService;
     @Autowired
     private MockMvc mockMvc;
@@ -36,7 +35,7 @@ class ArticleManagementControllerTest {
     @Test
     @WithMockUser(username = "test@mail.com")
     void testGetArticleManagementView() throws Exception {
-        List<ArticleDto> expected = List.of(TestDateGenerator.generateArticleDto("test", "test"));
+        List<ArticleDto> expected = List.of(TestDataGenerator.generateArticleDto("test", "test"));
 
         given(articleManagementService.findArticles()).willReturn(expected);
 
@@ -53,12 +52,12 @@ class ArticleManagementControllerTest {
     @Test
     @WithMockUser(username = "test@mail.com")
     void testGetArticleData() throws Exception {
-        ArticleDto articleDto = TestDateGenerator.generateArticleDto("test", "test");
+        ArticleDto articleDto = TestDataGenerator.generateArticleDto("test", "test");
         long articleId = 1L;
 
         given(articleManagementService.findArticle(articleId)).willReturn(articleDto);
 
-        mockMvc.perform(get(UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX + "/" + articleDto))
+        mockMvc.perform(get(UrlConstant.ARTICLE_MANAGEMENT_URL_PREFIX + "/" + articleId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.title").value(articleDto.title()))

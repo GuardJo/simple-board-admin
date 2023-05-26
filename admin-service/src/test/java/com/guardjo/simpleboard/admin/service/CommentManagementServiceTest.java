@@ -6,7 +6,7 @@ import com.guardjo.simpleboard.admin.config.SimpleBoardProperty;
 import com.guardjo.simpleboard.admin.domain.constant.SimpleBoardUrls;
 import com.guardjo.simpleboard.admin.model.CommentDto;
 import com.guardjo.simpleboard.admin.model.response.CommentResponse;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -96,7 +96,7 @@ class CommentManagementServiceTest {
         @DisplayName("게시판 서비스에서 댓글 목록 반환 테스트")
         @Test
         void testFindComments() throws JsonProcessingException {
-            List<CommentDto> expected = List.of(TestDateGenerator.generateCommentDto("test"));
+            List<CommentDto> expected = List.of(TestDataGenerator.generateCommentDto("test"));
             CommentResponse commentResponse = CommentResponse.from(expected);
 
             mockRestServiceServer.expect(
@@ -116,7 +116,7 @@ class CommentManagementServiceTest {
         @Test
         void testFindComment() throws JsonProcessingException {
             String content = "test content";
-            CommentDto expected = TestDateGenerator.generateCommentDto(content);
+            CommentDto expected = TestDataGenerator.generateCommentDto(content);
             long commentId = 1L;
 
             mockRestServiceServer.expect(

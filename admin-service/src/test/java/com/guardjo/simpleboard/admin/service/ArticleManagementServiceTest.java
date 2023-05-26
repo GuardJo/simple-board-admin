@@ -6,7 +6,7 @@ import com.guardjo.simpleboard.admin.config.SimpleBoardProperty;
 import com.guardjo.simpleboard.admin.domain.constant.SimpleBoardUrls;
 import com.guardjo.simpleboard.admin.model.ArticleDto;
 import com.guardjo.simpleboard.admin.model.response.ArticleResponse;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -93,8 +93,8 @@ class ArticleManagementServiceTest {
         @DisplayName("게시판 서비스에서 게시글 목록 반환 테스트")
         @Test
         void testFindArticles() throws JsonProcessingException {
-            List<ArticleDto> expected = List.of(TestDateGenerator.generateArticleDto("test", "test"));
-            ArticleResponse articleResponse = TestDateGenerator.generateArticleResponse(expected);
+            List<ArticleDto> expected = List.of(TestDataGenerator.generateArticleDto("test", "test"));
+            ArticleResponse articleResponse = TestDataGenerator.generateArticleResponse(expected);
 
             restServiceServer.expect(
                             requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "?size=" + Integer.MAX_VALUE)
@@ -114,7 +114,7 @@ class ArticleManagementServiceTest {
         @Test
         void testFindArticle() throws JsonProcessingException {
             long articleId = 1L;
-            ArticleDto expected = TestDateGenerator.generateArticleDto("test", "test");
+            ArticleDto expected = TestDataGenerator.generateArticleDto("test", "test");
 
             restServiceServer.expect(
                             requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "/" + articleId))
