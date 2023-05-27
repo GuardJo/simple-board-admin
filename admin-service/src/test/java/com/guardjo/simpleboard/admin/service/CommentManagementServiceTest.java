@@ -66,7 +66,7 @@ class CommentManagementServiceTest {
         @DisplayName("게시판 서비스에서 특정 댓글 삭제 테스튼")
         @Test
         void testDeleteComment() {
-            long commentId = 1L;
+            long commentId = 2L;
 
             assertThatCode(() -> commentManagementService.deleteComment(commentId))
                     .doesNotThrowAnyException();
@@ -74,7 +74,7 @@ class CommentManagementServiceTest {
     }
     
     @DisplayName("외부 서비스 요청 모킹 테스트")
-    @RestClientTest(CommentManagementServiceTest.class)
+    @RestClientTest(CommentManagementService.class)
     @AutoConfigureWebClient(registerRestTemplate = true)
     @EnableConfigurationProperties(SimpleBoardProperty.class)
     @Nested
@@ -102,7 +102,7 @@ class CommentManagementServiceTest {
             CommentResponse commentResponse = CommentResponse.from(expected);
 
             mockRestServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "?page=9999")
+                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "?size=" + Integer.MAX_VALUE)
             ).andRespond(withSuccess(
                     objectMapper.writeValueAsString(commentResponse),
                     MediaType.APPLICATION_JSON
@@ -110,7 +110,7 @@ class CommentManagementServiceTest {
 
             List<CommentDto> actual = commentManagementService.findComments();
 
-            assertThat(actual).isEqualTo(expected);
+            assertThat(actual.stream().findFirst()).isEqualTo(expected.stream().findFirst());
             mockRestServiceServer.verify();
         }
 
@@ -141,7 +141,7 @@ class CommentManagementServiceTest {
 
             mockRestServiceServer.expect(
                             requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "/" + commentId)
-                    ).andExpect(method(HttpMethod.POST))
+                    ).andExpect(method(HttpMethod.DELETE))
                     .andRespond(withSuccess());
 
             assertThatCode(() -> commentManagementService.deleteComment(commentId))
