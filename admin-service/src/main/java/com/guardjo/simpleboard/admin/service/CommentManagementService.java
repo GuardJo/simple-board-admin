@@ -25,9 +25,8 @@ public class CommentManagementService {
     public List<CommentDto> findComments() {
         log.info("Finding Comment List");
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(
-                        simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL
-                ).queryParam("size", Integer.MAX_VALUE)
+        URI uri = UriComponentsBuilder.fromHttpUrl(getRequestUrl())
+                .queryParam("size", Integer.MAX_VALUE)
                 .build().toUri();
 
         CommentResponse response = restTemplate.getForObject(uri, CommentResponse.class);
@@ -40,9 +39,8 @@ public class CommentManagementService {
     public CommentDto findComment(long commentId) {
         log.info("Finding Comment, commentId = {}", commentId);
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(
-                        simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL
-                ).path("/{commentId}")
+        URI uri = UriComponentsBuilder.fromHttpUrl(getRequestUrl())
+                .path("/{commentId}")
                 .build(commentId);
 
         CommentDto commentDto = restTemplate.getForObject(uri, CommentDto.class);
@@ -54,13 +52,16 @@ public class CommentManagementService {
     public void deleteComment(long commentId) {
         log.info("Deleting Comment, commentId = {}", commentId);
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(
-                        simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL
-                ).path("/{commentId}")
+        URI uri = UriComponentsBuilder.fromHttpUrl(getRequestUrl())
+                .path("/{commentId}")
                 .build(commentId);
 
         restTemplate.delete(uri);
 
         log.info("Deleted Comment, commentId = {}", commentId);
+    }
+
+    private String getRequestUrl() {
+        return simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL;
     }
 }
