@@ -55,6 +55,7 @@ public class TestDataGenerator {
 
     public static MemberDto generateMemberDto(String email) {
         return MemberDto.of(
+                1L,
                 email,
                 "tester",
                 "tester",
