@@ -1,10 +1,12 @@
 package com.guardjo.simpleboard.admin.model.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.guardjo.simpleboard.admin.model.MemberDto;
 
 import java.util.List;
 
 public record MemberResponse(
+        @JsonProperty("_embedded")
         Embedded embedded,
         Page page
 ) {
