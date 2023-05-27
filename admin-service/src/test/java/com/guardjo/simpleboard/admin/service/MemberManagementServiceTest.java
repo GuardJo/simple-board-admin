@@ -92,7 +92,7 @@ class MemberManagementServiceTest {
             MemberResponse memberResponse = MemberResponse.from(expected);
 
             mockRestServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_MEMBERS_URL + "?page=9999")
+                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_MEMBERS_URL + "?size=" + Integer.MAX_VALUE)
             ).andRespond(withSuccess(
                     objectMapper.writeValueAsString(memberResponse),
                     MediaType.APPLICATION_JSON
@@ -100,7 +100,7 @@ class MemberManagementServiceTest {
 
             List<MemberDto> actual = memberManagementService.findMembers();
 
-            assertThat(actual.get(0)).isEqualTo(expected.get(0));
+            assertThat(actual.stream().findFirst()).isEqualTo(expected.stream().findFirst());
 
             mockRestServiceServer.verify();
         }
