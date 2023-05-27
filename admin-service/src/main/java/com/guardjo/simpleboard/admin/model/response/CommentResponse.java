@@ -17,7 +17,14 @@ public record CommentResponse(
     public static CommentResponse from(List<CommentDto> commentDtos) {
         return CommentResponse.of(
                 Embedded.of(commentDtos),
-                Page.of(commentDtos.size(), commentDtos.size(), 1, 1)
+                Page.of(commentDtos.size(), 0, 1, 0)
+        );
+    }
+
+    public static CommentResponse empty() {
+        return CommentResponse.of(
+                Embedded.of(List.of()),
+                Page.of(1, 0, 1, 0)
         );
     }
 
