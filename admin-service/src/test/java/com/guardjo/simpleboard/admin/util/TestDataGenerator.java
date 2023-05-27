@@ -7,15 +7,15 @@ import com.guardjo.simpleboard.admin.model.CommentDto;
 import com.guardjo.simpleboard.admin.model.MemberDto;
 import com.guardjo.simpleboard.admin.model.response.ArticleResponse;
 import com.guardjo.simpleboard.admin.model.response.CommentResponse;
-import com.guardjo.simpleboard.admin.model.response.MemberResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-public class TestDateGenerator {
+public class TestDataGenerator {
     public static ArticleDto generateArticleDto(String title, String content) {
         return ArticleDto.of(
+                1L,
                 "creator",
                 LocalDateTime.now(),
                 "modifier",

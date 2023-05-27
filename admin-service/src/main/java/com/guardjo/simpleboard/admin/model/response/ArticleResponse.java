@@ -17,7 +17,14 @@ public record ArticleResponse(
     public static ArticleResponse from(List<ArticleDto> articles) {
         return ArticleResponse.of(
                 Embedded.of(articles),
-                Page.of(articles.size(), articles.size(), 1, 1)
+                Page.of(articles.size(), 0, 1, 0)
+        );
+    }
+
+    public static ArticleResponse empty() {
+        return ArticleResponse.of(
+                Embedded.of(List.of()),
+                Page.of(1, 0, 1, 0)
         );
     }
 

@@ -1,10 +1,9 @@
 package com.guardjo.simpleboard.admin.controller;
 
-import com.guardjo.simpleboard.admin.config.SecurityConfig;
 import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.service.CommentManagementService;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -52,7 +51,7 @@ class CommentManagementControllerTest {
         long commentId = 1L;
         String content = "test";
         given(commentManagementService.findComment(commentId))
-                .willReturn(TestDateGenerator.generateCommentDto(content));
+                .willReturn(TestDataGenerator.generateCommentDto(content));
 
         mockMvc.perform(get(UrlConstant.COMMENT_MANAGEMENT_URL_PREFIX + "/" + commentId))
                 .andExpect(status().isOk())

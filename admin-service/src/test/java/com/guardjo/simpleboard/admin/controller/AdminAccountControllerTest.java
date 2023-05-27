@@ -1,14 +1,11 @@
 package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.SecurityConfig;
-import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
-import com.guardjo.simpleboard.admin.model.AdminAccountDto;
 import com.guardjo.simpleboard.admin.service.AdminAccountService;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +35,7 @@ class AdminAccountControllerTest {
     @BeforeTestMethod
     public void init() {
         given(adminAccountService.searchAdminAccount(anyString()))
-                .willReturn(Optional.of(TestDateGenerator.generateAccountDto()));
+                .willReturn(Optional.of(TestDataGenerator.generateAccountDto()));
     }
 
     @DisplayName("어드민 회원 관리 뷰페이지 반환 테스트")

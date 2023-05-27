@@ -1,7 +1,7 @@
 package com.guardjo.simpleboard.admin.config;
 
 import com.guardjo.simpleboard.admin.service.AdminAccountService;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -21,6 +21,6 @@ public class TestSecurityConfig {
     @BeforeTestMethod
     public void init() {
         given(adminAccountService.searchAdminAccount(anyString()))
-                .willReturn(Optional.of(TestDateGenerator.generateAccountDto()));
+                .willReturn(Optional.of(TestDataGenerator.generateAccountDto()));
     }
 }
