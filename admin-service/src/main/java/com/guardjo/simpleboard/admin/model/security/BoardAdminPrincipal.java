@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -50,13 +51,16 @@ public record BoardAdminPrincipal(String email, String name, String password,
 
     public static AdminAccountDto toDto(BoardAdminPrincipal principal) {
         return AdminAccountDto.of(
+                null,
                 principal.getUsername(),
                 principal.getNickName(),
                 principal.getPassword(),
                 principal.authorities.stream()
                         .map(GrantedAuthority::getAuthority)
                         .map(RoleType::valueOf)
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toSet()),
+                principal.getNickName(),
+                LocalDateTime.now()
         );
     }
 

@@ -3,6 +3,9 @@ package com.guardjo.simpleboard.admin.domain.constant;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+import java.util.NoSuchElementException;
+
 @Getter
 @RequiredArgsConstructor
 public enum RoleType {
@@ -13,4 +16,9 @@ public enum RoleType {
 
     private final String roleName;
     private final String description;
+    public static RoleType getRoleType(String description) {
+        return Arrays.stream(RoleType.values())
+                .filter(roleType -> roleType.getDescription().equals(description))
+                .findFirst().orElseThrow(() -> new NoSuchElementException("No such RoleType, description = " + description));
+    }
 }

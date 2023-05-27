@@ -27,10 +27,13 @@ public class TestDataGenerator {
 
     public static AdminAccountDto generateAccountDto() {
         return AdminAccountDto.of(
+                1L,
                 "test@mail.com",
                 "tester",
                 "1234",
-                Set.of(RoleType.DEVELOPER)
+                Set.of(RoleType.DEVELOPER),
+                "tester",
+                LocalDateTime.now()
         );
     }
 
