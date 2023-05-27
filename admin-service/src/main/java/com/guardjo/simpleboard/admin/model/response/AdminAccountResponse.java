@@ -11,7 +11,7 @@ public record AdminAccountResponse(
         String roleTypes
 ) {
     public static AdminAccountResponse of(String email, String name, String roleTypes) {
-        return AdminAccountResponse.of(email, name, roleTypes);
+        return new AdminAccountResponse(email, name, roleTypes);
     }
 
     public static AdminAccountResponse from(AdminAccountDto dto) {
