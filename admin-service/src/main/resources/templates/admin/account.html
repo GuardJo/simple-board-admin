@@ -25,7 +25,7 @@
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/plugins/jsgrid/jsgrid.min.js"></script>
 
-<script>
+<script id="jsgrid-script">
     $(function () {
         $("#admin-account-table").jsGrid({
             height: "100%",
@@ -53,7 +53,7 @@
                 { name: "accountId", title: "ID", type: "number", width: 150 },
                 { name: "username", title: "이름", type: "text", width: 100 },
                 { name: "email", title: "이메일" ,type: "text", width: 200 },
-                { name: "roleType", title: "권한", type: "select", items: [{"name" : "ADMIN", "description" : "관리자"}]},
+                { name: "roleType", title: "권한", type: "text", width:100},
                 { name: "creator", title: "생성자" ,type: "text", width: 200 },
                 { name: "createTime", title: "생성일시" ,type: "text", width: 200 },
                 { type: "control"}

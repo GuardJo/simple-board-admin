@@ -8,4 +8,54 @@
     <attr sel="#layout-right-aside" th:replace="layouts/layout-right-aside :: aside"/>
     <attr sel="#layout-footer" th:replace="layouts/layout-footer :: footer"/>
     <attr sel="#layout-scripts" th:replace="layouts/layout-scripts :: script"/>
+
+    <attr sel="#jsgrid-script" th:utext='|
+    $(function () {
+        const csrfHeader = "${_csrf.getHeaderName()}";
+        const csrfToken = "${_csrf.getToken()}";
+        $("#admin-account-table").jsGrid({
+            width: "100%",
+
+            autoload: true,
+            inserting: false,
+            editing: false,
+            sorting: true,
+            paging: false,
+
+            deleteConfirm: "정말로 해당 계정을 삭제하시겠습니까?",
+
+            fields: [
+                { name: "id", title: "ID", type: "number", width: 70 },
+                { name: "name", title: "이름", type: "text", width: 60 },
+                { name: "email", title: "이메일" ,type: "text", width: 120 },
+                { name: "roleTypes", title: "권한", type: "text", width: 100},
+                { name: "creator", title: "생성자" ,type: "text", width: 60 },
+                { name: "createTime", title: "생성일시" ,type: "text", width: 100 },
+                { type: "control"}
+            ],
+
+            controller: {
+                loadData: (filter) => {
+                    return $.ajax({
+                        type: "GET",
+                        url: "/api/admin/accounts",
+                        data: filter,
+                        dataType: "json"
+                    });
+                },
+                insertItem: $.noop,
+                updateItem: $.noop,
+                deleteItem: (item) => {
+                    return $.ajax({
+                        type: "DELETE",
+                        url: "/api/admin/accounts/" + item.email,
+                        data: item,
+                        dataType: "json",
+                        beforeSend: (xhr) => xhr.setRequestHeader(csrfHeader, csrfToken)
+                    });
+                },
+            }
+        });
+    });
+    |'/>
 </thlogic>
