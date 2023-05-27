@@ -8,4 +8,24 @@
     <attr sel="#layout-right-aside" th:replace="layouts/layout-right-aside :: aside"/>
     <attr sel="#layout-footer" th:replace="layouts/layout-footer :: footer"/>
     <attr sel="#layout-scripts" th:replace="layouts/layout-scripts :: script"/>
+
+    <attr sel="#main-table">
+        <attr sel="thead/tr">
+            <attr sel="th[0]" th:text="ID"/>
+            <attr sel="th[1]" th:text="이름"/>
+            <attr sel="th[2]" th:text="이메일"/>
+            <attr sel="th[3]" th:text="작성자"/>
+            <attr sel="th[4]" th:text="작성일시"/>
+        </attr>
+        <attr sel="tbody" th:remove="all-but-first">
+            <attr sel="tr" th:each="member : ${members}">
+                <attr sel="td[0]" th:text="${member.id}"/>
+                <attr sel="td[1]" th:text="${member.name}"/>
+                <attr sel="td[2]" th:text="${member.email}"/>
+                <attr sel="td[3]" th:text="${member.creator}"/>
+                <attr sel="td[4]" th:datetime="${member.createTime}"
+                      th:text="${#temporals.format(member.createTime, 'yyyy-MM-dd HH:mm:ss')}"/>
+            </attr>
+        </attr>
+    </attr>
 </thlogic>
