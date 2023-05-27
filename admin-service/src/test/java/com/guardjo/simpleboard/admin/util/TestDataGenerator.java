@@ -40,6 +40,7 @@ public class TestDataGenerator {
 
     public static CommentDto generateCommentDto(String content) {
         return CommentDto.of(
+                1L,
                 null,
                 "tester",
                 LocalDateTime.now(),
