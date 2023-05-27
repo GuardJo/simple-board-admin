@@ -7,6 +7,7 @@ import com.guardjo.simpleboard.admin.domain.constant.SimpleBoardUrls;
 import com.guardjo.simpleboard.admin.model.CommentDto;
 import com.guardjo.simpleboard.admin.model.response.CommentResponse;
 import com.guardjo.simpleboard.admin.util.TestDataGenerator;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ActiveProfiles("test")
 class CommentManagementServiceTest {
+    @Disabled("실제 연동 필요할 경우에만 실행")
     @DisplayName("실제 서비스 연동 테스트")
     @SpringBootTest
     @Nested
