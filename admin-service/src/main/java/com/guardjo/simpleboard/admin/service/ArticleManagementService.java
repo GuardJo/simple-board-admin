@@ -15,8 +15,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import static com.guardjo.simpleboard.admin.model.response.ArticleResponse.*;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -26,7 +24,7 @@ public class ArticleManagementService {
 
     public List<ArticleDto> findArticles() {
         log.info("Finding Articles");
-        URI uri = UriComponentsBuilder.fromHttpUrl(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL)
+        URI uri = UriComponentsBuilder.fromHttpUrl(getRequestUrl())
                 .queryParam("size", Integer.MAX_VALUE)
                 .build().toUri();
 
@@ -40,9 +38,9 @@ public class ArticleManagementService {
     public ArticleDto findArticle(Long articleId) {
         log.info("Finding Article, articleId = {}", articleId);
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "/" + articleId)
-                .build()
-                .toUri();
+        URI uri = UriComponentsBuilder.fromHttpUrl(getRequestUrl())
+                .path("/{articleId}")
+                .build(articleId);
 
         return Optional.ofNullable(restTemplate.getForObject(uri, ArticleDto.class))
                 .orElseThrow(() -> new EntityNotFoundException("Not Found Article , articleId = " + articleId));
@@ -51,10 +49,14 @@ public class ArticleManagementService {
     public void deleteArticle(Long articleId) {
         log.info("Deleting Article, articleId = {}", articleId);
 
-        URI uri = UriComponentsBuilder.fromHttpUrl(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL + "/" + articleId)
-                .build()
-                .toUri();
+        URI uri = UriComponentsBuilder.fromHttpUrl(getRequestUrl())
+                .path("/{articleId}")
+                .build(articleId);
 
         restTemplate.delete(uri);
+    }
+
+    private String getRequestUrl() {
+        return simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_ARTICLES_URL;
     }
 }
