@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -42,14 +43,10 @@ class AdminAccountControllerTest {
     @Test
     @WithMockUser(username = "test@mail.com")
     void testGetAdminAccountView() throws Exception {
-        given(adminAccountService.findAdminAccounts()).willReturn(List.of());
-
         mockMvc.perform(get(UrlConstant.ADMIN_ACCOUNT_URL_PREFIX))
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin/account"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML));
-
-        then(adminAccountService).should().findAdminAccounts();
     }
 
     @DisplayName("어드민 회원 목록 데이터 반환 테스트")
@@ -73,7 +70,8 @@ class AdminAccountControllerTest {
 
         willDoNothing().given(adminAccountService).deleteAdminAccount(email);
 
-        mockMvc.perform(delete(UrlConstant.ADMIN_ACCOUNT_API_URL + "/" + email))
+        mockMvc.perform(delete(UrlConstant.ADMIN_ACCOUNT_API_URL + "/" + email)
+                        .with(csrf()))
                 .andExpect(status().isNoContent());
 
         then(adminAccountService).should().deleteAdminAccount(email);
