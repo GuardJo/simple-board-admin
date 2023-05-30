@@ -1,9 +1,9 @@
 package com.guardjo.simpleboard.admin.model;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 public record ArticleDto(
+        long id,
         String creator,
         LocalDateTime createTime,
         String modifier,
@@ -12,12 +12,13 @@ public record ArticleDto(
         String content
 ) {
     public static ArticleDto of(
-                      String creator,
-                      LocalDateTime createTime,
-                      String modifier,
-                      LocalDateTime modifiedTime,
-                      String title,
-                      String content) {
-        return new ArticleDto(creator, createTime, modifier, modifiedTime, title, content);
+            long id,
+            String creator,
+            LocalDateTime createTime,
+            String modifier,
+            LocalDateTime modifiedTime,
+            String title,
+            String content) {
+        return new ArticleDto(id, creator, createTime, modifier, modifiedTime, title, content);
     }
 }

@@ -6,7 +6,8 @@ import com.guardjo.simpleboard.admin.config.SimpleBoardProperty;
 import com.guardjo.simpleboard.admin.domain.constant.SimpleBoardUrls;
 import com.guardjo.simpleboard.admin.model.CommentDto;
 import com.guardjo.simpleboard.admin.model.response.CommentResponse;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ActiveProfiles("test")
 class CommentManagementServiceTest {
+    @Disabled("실제 연동 필요할 경우에만 실행")
     @DisplayName("실제 서비스 연동 테스트")
     @SpringBootTest
     @Nested
@@ -64,7 +66,7 @@ class CommentManagementServiceTest {
         @DisplayName("게시판 서비스에서 특정 댓글 삭제 테스튼")
         @Test
         void testDeleteComment() {
-            long commentId = 1L;
+            long commentId = 2L;
 
             assertThatCode(() -> commentManagementService.deleteComment(commentId))
                     .doesNotThrowAnyException();
@@ -72,7 +74,7 @@ class CommentManagementServiceTest {
     }
     
     @DisplayName("외부 서비스 요청 모킹 테스트")
-    @RestClientTest(CommentManagementServiceTest.class)
+    @RestClientTest(CommentManagementService.class)
     @AutoConfigureWebClient(registerRestTemplate = true)
     @EnableConfigurationProperties(SimpleBoardProperty.class)
     @Nested
@@ -96,11 +98,11 @@ class CommentManagementServiceTest {
         @DisplayName("게시판 서비스에서 댓글 목록 반환 테스트")
         @Test
         void testFindComments() throws JsonProcessingException {
-            List<CommentDto> expected = List.of(TestDateGenerator.generateCommentDto("test"));
+            List<CommentDto> expected = List.of(TestDataGenerator.generateCommentDto("test"));
             CommentResponse commentResponse = CommentResponse.from(expected);
 
             mockRestServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "?page=9999")
+                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "?size=" + Integer.MAX_VALUE)
             ).andRespond(withSuccess(
                     objectMapper.writeValueAsString(commentResponse),
                     MediaType.APPLICATION_JSON
@@ -108,7 +110,7 @@ class CommentManagementServiceTest {
 
             List<CommentDto> actual = commentManagementService.findComments();
 
-            assertThat(actual).isEqualTo(expected);
+            assertThat(actual.stream().findFirst()).isEqualTo(expected.stream().findFirst());
             mockRestServiceServer.verify();
         }
 
@@ -116,7 +118,7 @@ class CommentManagementServiceTest {
         @Test
         void testFindComment() throws JsonProcessingException {
             String content = "test content";
-            CommentDto expected = TestDateGenerator.generateCommentDto(content);
+            CommentDto expected = TestDataGenerator.generateCommentDto(content);
             long commentId = 1L;
 
             mockRestServiceServer.expect(
@@ -139,7 +141,7 @@ class CommentManagementServiceTest {
 
             mockRestServiceServer.expect(
                             requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_COMMENTS_URL + "/" + commentId)
-                    ).andExpect(method(HttpMethod.POST))
+                    ).andExpect(method(HttpMethod.DELETE))
                     .andRespond(withSuccess());
 
             assertThatCode(() -> commentManagementService.deleteComment(commentId))

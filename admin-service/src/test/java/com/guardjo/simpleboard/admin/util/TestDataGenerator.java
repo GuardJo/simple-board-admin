@@ -7,15 +7,15 @@ import com.guardjo.simpleboard.admin.model.CommentDto;
 import com.guardjo.simpleboard.admin.model.MemberDto;
 import com.guardjo.simpleboard.admin.model.response.ArticleResponse;
 import com.guardjo.simpleboard.admin.model.response.CommentResponse;
-import com.guardjo.simpleboard.admin.model.response.MemberResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-public class TestDateGenerator {
+public class TestDataGenerator {
     public static ArticleDto generateArticleDto(String title, String content) {
         return ArticleDto.of(
+                1L,
                 "creator",
                 LocalDateTime.now(),
                 "modifier",
@@ -27,10 +27,13 @@ public class TestDateGenerator {
 
     public static AdminAccountDto generateAccountDto() {
         return AdminAccountDto.of(
+                1L,
                 "test@mail.com",
                 "tester",
                 "1234",
-                Set.of(RoleType.DEVELOPER)
+                Set.of(RoleType.DEVELOPER),
+                "tester",
+                LocalDateTime.now()
         );
     }
 
@@ -40,6 +43,7 @@ public class TestDateGenerator {
 
     public static CommentDto generateCommentDto(String content) {
         return CommentDto.of(
+                1L,
                 null,
                 "tester",
                 LocalDateTime.now(),
@@ -55,6 +59,7 @@ public class TestDateGenerator {
 
     public static MemberDto generateMemberDto(String email) {
         return MemberDto.of(
+                1L,
                 email,
                 "tester",
                 "tester",

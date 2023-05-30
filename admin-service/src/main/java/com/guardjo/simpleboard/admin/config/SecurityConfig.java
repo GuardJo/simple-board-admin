@@ -28,7 +28,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        String[] managerRole = {RoleType.MANAGER.getRoleName(), RoleType.DEVELOPER.getRoleName(), RoleType.ADMIN.getRoleName()};
+        String[] managerRole = {RoleType.MANAGER.name(), RoleType.DEVELOPER.name(), RoleType.ADMIN.name()};
 
         httpSecurity.authorizeRequests((auth) ->
                         auth.requestMatchers(

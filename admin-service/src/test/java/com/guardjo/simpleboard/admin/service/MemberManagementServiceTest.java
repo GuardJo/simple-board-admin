@@ -6,7 +6,8 @@ import com.guardjo.simpleboard.admin.config.SimpleBoardProperty;
 import com.guardjo.simpleboard.admin.domain.constant.SimpleBoardUrls;
 import com.guardjo.simpleboard.admin.model.MemberDto;
 import com.guardjo.simpleboard.admin.model.response.MemberResponse;
-import com.guardjo.simpleboard.admin.util.TestDateGenerator;
+import com.guardjo.simpleboard.admin.util.TestDataGenerator;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ActiveProfiles("test")
 class MemberManagementServiceTest {
+    @Disabled("실제 연동 필요할 경우에만 실행")
     @DisplayName("실제 서비스 연동 테스트")
     @SpringBootTest
     @Nested
@@ -86,11 +88,11 @@ class MemberManagementServiceTest {
         @DisplayName("게시판 서비스의 계정 목록 호출 테스트")
         @Test
         void testFindMembers() throws JsonProcessingException {
-            List<MemberDto> expected = List.of(TestDateGenerator.generateMemberDto("test@mail.com"));
+            List<MemberDto> expected = List.of(TestDataGenerator.generateMemberDto("test@mail.com"));
             MemberResponse memberResponse = MemberResponse.from(expected);
 
             mockRestServiceServer.expect(
-                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_MEMBERS_URL + "?page=9999")
+                    requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_MEMBERS_URL + "?size=" + Integer.MAX_VALUE)
             ).andRespond(withSuccess(
                     objectMapper.writeValueAsString(memberResponse),
                     MediaType.APPLICATION_JSON
@@ -98,7 +100,7 @@ class MemberManagementServiceTest {
 
             List<MemberDto> actual = memberManagementService.findMembers();
 
-            assertThat(actual.get(0)).isEqualTo(expected.get(0));
+            assertThat(actual.stream().findFirst()).isEqualTo(expected.stream().findFirst());
 
             mockRestServiceServer.verify();
         }
@@ -107,7 +109,7 @@ class MemberManagementServiceTest {
         @Test
         void testFindMember() throws JsonProcessingException {
             long memberId = 1L;
-            MemberDto expected = TestDateGenerator.generateMemberDto("test@mail.com");
+            MemberDto expected = TestDataGenerator.generateMemberDto("test@mail.com");
 
             mockRestServiceServer.expect(
                     requestTo(simpleBoardProperty.baseUrl() + SimpleBoardUrls.REQUEST_MEMBERS_URL + "/" + memberId)

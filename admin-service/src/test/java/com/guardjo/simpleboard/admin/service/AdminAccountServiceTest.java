@@ -1,6 +1,7 @@
 package com.guardjo.simpleboard.admin.service;
 
 import com.guardjo.simpleboard.admin.domain.AdminAccount;
+import com.guardjo.simpleboard.admin.domain.constant.RoleType;
 import com.guardjo.simpleboard.admin.model.AdminAccountDto;
 import com.guardjo.simpleboard.admin.repository.AdminAccountRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -24,6 +26,8 @@ import static org.mockito.BDDMockito.*;
 class AdminAccountServiceTest {
     @Mock
     private AdminAccountRepository adminAccountRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
     @InjectMocks
     private AdminAccountService adminAccountService;
 
@@ -66,10 +70,11 @@ class AdminAccountServiceTest {
         String name = "tester";
         String password = "1234";
 
-        AdminAccount entity = AdminAccount.of(email, name, Set.of(), password);
+        AdminAccount entity = AdminAccount.of(email, name, Set.of(RoleType.MANAGER), password);
         AdminAccountDto expected = AdminAccountDto.from(entity);
 
         given(adminAccountRepository.save(entity)).willReturn(entity);
+        given(passwordEncoder.encode(password)).willReturn(password);
 
         AdminAccountDto actual = adminAccountService.createAdminAccount(email, name, password);
 
