@@ -76,7 +76,7 @@ public class SecurityConfig {
             AdminAccountDto adminAccountDto = adminAccountService.searchAdminAccount(kakaoOAuth2UserResponse.kakaoAccount().email())
                     .orElseGet(() -> adminAccountService.createAdminAccount(
                             kakaoOAuth2UserResponse.kakaoAccount().email(),
-                            kakaoOAuth2UserResponse.kakaoAccount().name(),
+                            kakaoOAuth2UserResponse.kakaoAccount().profile().nickname(),
                             passwordEncoder.encode(randomPassword(kakaoOAuth2UserResponse.id())))
                     );
 
