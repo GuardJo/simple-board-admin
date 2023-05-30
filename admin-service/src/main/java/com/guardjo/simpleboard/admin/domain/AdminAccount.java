@@ -55,7 +55,7 @@ public class AdminAccount extends MetaInfoData{
     }
 
     public static AdminAccount of(String email, String name, Set<RoleType> roleTypes, String password) {
-        return new AdminAccount(email, name, roleTypes, password, null);
+        return new AdminAccount(email, name, roleTypes, password, email);
     }
 
     /**
