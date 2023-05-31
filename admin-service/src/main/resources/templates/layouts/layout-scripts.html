@@ -6,5 +6,45 @@
 </head>
 <body>
 <script src="/js/adminlte.min.js"></script>
+<script>
+    const darkMode = "darkMode";
+
+    $(document).ready(() => {
+        if (sessionStorage.getItem(darkMode) === "true") {
+            $('body').addClass('dark-mode');
+            $('header nav')
+                .addClass('navbar-dark')
+                .removeClass('navbar-white');
+            $('main, footer')
+                .addClass('accent-white')
+                .removeClass('accent-dark');
+            $('.modal-body p').addClass('text-light');
+            $('#dark-mode-checkbox').prop('checked', true);
+        }
+    })
+    $('#dark-mode-checkbox').on('click', function () {
+        if ($(this).is(':checked')) {
+            $('body').addClass('dark-mode');
+            $('header nav')
+                .addClass('navbar-dark')
+                .removeClass('navbar-white');
+            $('main, footer')
+                .addClass('accent-white')
+                .removeClass('accent-dark');
+            $('.modal-body p a').addClass('text-light');
+            sessionStorage.setItem(darkMode, "true");
+        } else {
+            $('body').removeClass('dark-mode');
+            $('header nav')
+                .addClass('navbar-white')
+                .removeClass('navbar-dark');
+            $('main, footer')
+                .addClass('accent-dark')
+                .removeClass('accent-white');
+            $('.modal-body p').removeClass('text-white');
+            sessionStorage.setItem(darkMode, "false");
+        }
+    });
+</script>
 </body>
 </html>
