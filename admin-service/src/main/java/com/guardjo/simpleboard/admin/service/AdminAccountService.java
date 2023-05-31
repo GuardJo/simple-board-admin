@@ -31,11 +31,9 @@ public class AdminAccountService {
     public Optional<AdminAccountDto> searchAdminAccount(String email) {
         log.info("Finding AdminAccount, email = {}", email);
 
-        AdminAccountDto adminAccountDto = adminAccountRepository.findByEmail(email)
-                .map(AdminAccountDto::from)
-                .orElseThrow(() -> new EntityNotFoundException("Not Found AdminAccount, email = " + email));
+        Optional<AdminAccount> adminAccount = adminAccountRepository.findByEmail(email);
 
-        return Optional.ofNullable(adminAccountDto);
+        return adminAccount.map(AdminAccountDto::from);
     }
 
     /**
