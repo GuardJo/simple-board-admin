@@ -6,4 +6,6 @@
     <attr sel="#breadcrumb-current-page" th:text="${title}" />
     <attr sel="#card-title" th:text="|${title} 게시판|" />
     <attr sel="#main-table" th:replace="${table}" />
+
+    <attr sel="#layout-chat-bot" th:replace="layouts/layout-chat-bot :: #layout-chat-bot"/>
 </thlogic>
