@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>공통 Chat Bot</title>
+</head>
+<body>
+<div id="layout-chat-bot" class="card direct-chat direct-chat-primary">
+    <div class="card-header ui-sortable-handle" style="cursor: move;">
+        <h3 class="card-title">Direct Chat</h3>
+        <div class="card-tools">
+            <span title="New Messages" class="badge badge-primary">3</span>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="direct-chat-messages"><!--/* chat messages */--></div>
+    </div>
+    <div class="card-footer">
+        <form id="chat-form" action="#" method="post">
+            <div class="input-group">
+                <input id="input-message" type="text" name="message" placeholder="Type Message ..." class="form-control">
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-primary">Send</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
