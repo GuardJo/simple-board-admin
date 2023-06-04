@@ -1,6 +1,7 @@
 package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
+import com.guardjo.simpleboard.admin.config.TestVisitCountConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.service.CommentManagementService;
 import com.guardjo.simpleboard.admin.util.TestDataGenerator;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import(TestSecurityConfig.class)
+@Import({TestSecurityConfig.class, TestVisitCountConfig.class})
 @WebMvcTest(CommentManagementController.class)
 class CommentManagementControllerTest {
     @Autowired

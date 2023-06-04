@@ -1,6 +1,7 @@
 package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
+import com.guardjo.simpleboard.admin.config.TestVisitCountConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.model.MemberDto;
 import com.guardjo.simpleboard.admin.service.MemberManagementService;
@@ -22,7 +23,7 @@ import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import(TestSecurityConfig.class)
+@Import({TestSecurityConfig.class, TestVisitCountConfig.class})
 @WebMvcTest(MemberManagementController.class)
 class MemberManagementControllerTest {
     @Autowired

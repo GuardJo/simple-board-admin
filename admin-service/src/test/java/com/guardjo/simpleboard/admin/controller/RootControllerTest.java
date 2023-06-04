@@ -2,6 +2,7 @@ package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.SecurityConfig;
 import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
+import com.guardjo.simpleboard.admin.config.TestVisitCountConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import(TestSecurityConfig.class)
+@Import({TestSecurityConfig.class, TestVisitCountConfig.class})
 @WebMvcTest(RootController.class)
 class RootControllerTest {
     @Autowired

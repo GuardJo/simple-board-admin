@@ -5,7 +5,7 @@
     <title>공통 메인 테이블</title>
 </head>
 <body>
-<main id="layout-main" class="content-wrapper">
+<main id="layout-main" class="content-wrapper accent-dark">
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -28,7 +28,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <section class="col-12 connectedSortable">
                     <div class="card">
                         <div class="card-header">
                             <h3 id="card-title" class="card-title">카드 제목</h3>
@@ -39,11 +39,18 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-                </div>
+                </section>
                 <!-- /.col -->
             </div>
             <!-- /.row -->
+            <div class="row">
+                <section class="col-6 connectedSortable">
+                    <div class="card" id="layout-todolist"><!--/* todo list 삽입 부분 */--></div>
+                </section>
+                <section class="col-6 connectedSortable">
+                    <div class="card" id="layout-chat-bot" ><!--/* 챗봇 삽입 부분 */--></div>
+                </section>
+            </div>
         </div>
         <!-- /.container-fluid -->
     </section>
