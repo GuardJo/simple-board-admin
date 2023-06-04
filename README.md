@@ -10,6 +10,14 @@
 - 기타 부가 기능
 - 인증 기능 (kakao oauth2)
 
+# 실행 전 필요 환경 변수
+- `SIMPLE_BOARD_URL` : 간단 게시판 base url
+- `KAKAO_OAUTH2_LOGIN_KEY` : 카카오 로그인 관련 key
+- `KAKAO_OAUTH2_LOGIN_SECRET` : 카카오 로그인 관련 secret
+- `CLOUDTYPE_MARIA_DB_URL` : 연결할 mariaDB url
+- `CLOUDTYPE_MARIA_DB_USERNAME` : 연결 DB 의 username
+- `CLOUDTYPE_MARIA_DB_PASSWORD` : 연결 DB 의 password
+
 # 도메인 설계
 
 ## 회원 도메인 (ACCOUNT)
