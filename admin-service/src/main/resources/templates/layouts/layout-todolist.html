@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>공통 todo 리스트</title>
+</head>
+<body>
+<div class="card col-6" id="layout-todolist">
+    <div class="card-header ui-sortable-handle" style="cursor: move;">
+        <h3 class="card-title">
+            <i class="ion ion-clipboard mr-1"></i>
+            To Do List
+        </h3>
+    </div>
+
+    <div class="card-body">
+        <ul class="todo-list ui-sortable" data-widget="todo-list">
+            <li>
+                <!-- drag handling -->
+                <span class="handle ui-sortable-handle">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </span>
+
+                <!-- checkbox -->
+                <div class="icheck-primary d-inline ml-2">
+                    <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                    <label for="todoCheck1"></label>
+                </div>
+
+                <span class="text">todo</span>
+
+                <!-- General search, delete or edit -->
+                <div class="tools">
+                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-trash-o"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-footer input-group mb-3 clearfix">
+        <label for="todo-input"></label>
+        <input id="todo-input" type="text" class="form-control">
+        <span class="input-group-append">
+            <button id="todo-button" type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
+        </span>
+    </div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('#todo-button').click(() => {
+            const text = $('#todo-input').val();
+            const todoElement = `
+            <li>
+                <!-- drag handling -->
+                <span class="handle ui-sortable-handle">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </span>
+
+                <!-- checkbox -->
+                <div class="icheck-primary d-inline ml-2">
+                    <input type="checkbox" value="" name="todo1">
+                    <label for="todoCheck1"></label>
+                </div>
+
+                <span class="text">${text}</span>
+
+                <!-- General search, delete or edit -->
+                <div class="tools">
+                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-trash-o"></i>
+                </div>
+            </li>
+            `;
+
+            $('ul.todo-list').append(todoElement);
+        });
+
+        $('#todo-input').keyup((event) => {
+            if (event.keyCode === 13) {
+                $('#todo-button').click();
+            }
+        });
+
+        $(document).on('dbclick', 'ul.todo-list', function () {
+            $(this).toggleClass('done').fadeOut('slow');
+        });
+    });
+</script>
+
+</body>
+</html>

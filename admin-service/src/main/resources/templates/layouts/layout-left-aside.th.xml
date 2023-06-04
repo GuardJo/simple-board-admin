@@ -2,6 +2,7 @@
 <thlogic>
     <attr sel="#admin-logo-link" th:href="@{/}"/>
     <attr sel="#user-profile" th:href="@{#}" th:text="${#authentication.getPrincipal().getNickName()}"/>
+    <attr sel="#visit-count" th:text="${visitCount}"/>
     <attr sel="#management-category" th:classappend="${#request.requestURI.startsWith('/management')} ? 'active'"/>
     <attr sel="#article-management" th:href="@{/management/articles}"
             th:classappend="${#request.requestURI.equals('/management/articles')} ? 'active'"/>
