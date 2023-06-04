@@ -1,6 +1,7 @@
 package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.TestSecurityConfig;
+import com.guardjo.simpleboard.admin.config.TestVisitCountConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.model.ArticleDto;
 import com.guardjo.simpleboard.admin.service.ArticleManagementService;
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import(TestSecurityConfig.class)
+@Import({TestSecurityConfig.class, TestVisitCountConfig.class})
 @WebMvcTest(ArticleManagementController.class)
 class ArticleManagementControllerTest {
     @MockBean

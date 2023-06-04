@@ -1,6 +1,7 @@
 package com.guardjo.simpleboard.admin.controller;
 
 import com.guardjo.simpleboard.admin.config.SecurityConfig;
+import com.guardjo.simpleboard.admin.config.TestVisitCountConfig;
 import com.guardjo.simpleboard.admin.controller.constant.UrlConstant;
 import com.guardjo.simpleboard.admin.service.AdminAccountService;
 import com.guardjo.simpleboard.admin.util.TestDataGenerator;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, TestVisitCountConfig.class})
 @WebMvcTest(AdminAccountController.class)
 class AdminAccountControllerTest {
     @Autowired
