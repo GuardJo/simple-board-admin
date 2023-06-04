@@ -75,7 +75,7 @@ public class AdminAccountService {
 
         String encodedPassword = passwordEncoder.encode(password);
         AdminAccount newAccount = AdminAccount.of(email, name, new LinkedHashSet<>(), encodedPassword);
-        newAccount.getRoleTypes().add(RoleType.MANAGER);
+        newAccount.getRoleTypes().add(RoleType.USER);
 
         return AdminAccountDto.from(adminAccountRepository.save(newAccount));
     }
